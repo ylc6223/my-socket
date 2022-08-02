@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>webscoket</title>
+    <style>
+        div#result{
+            width: 200px;
+            height: 200px;
+            border: 1px solid #000;
+        }
+    </style>
+</head>
+<body>
+<div id="app">
+    <!--    输入内容-->
+    <input type="text" placeholder="输入你的内容">
+    <!--    trigger-->
+    <button id="sendbtn">开启连接</button>
+    <button id="closebtn">关闭websocket连接</button>
+    <!--    result-->
+    <div id="result">结果</div>
+<!--    演示websocket在浏览器端如何使用-->
+<!--    H5支持webscoket的api-->
+    <script>
+        const url = "ws://121.40.165.18:8800"
+        // const openBtn = document.querySelector("#sendbtn")
+        const ws = new WebSocket(url)
+        const result = document.querySelector("#result")
+        const closebtn = document.querySelector("#closebtn")
+        closebtn.addEventListener("click",() =>{
+            ws.close()
+        })
+        //当一个 WebSocket 连接成功时触发。
+        ws.addEventListener("open",() =>{
+            console.log('connected success')
+            result.innerHTML="连接成功"
+        })
+        //当通过 WebSocket 收到数据时触发。
+        ws.addEventListener("message",() =>{
+            console.log('accept data succeed')
+        })
+        //当一个 WebSocket 连接因错误而关闭时触发，例如无法发送数据时。
+        ws.addEventListener("error",() =>{
+            console.log('connected failed')
+        })
+        //当一个 WebSocket 连接被关闭时触发。
+        ws.addEventListener("close",() =>{
+            console.log('close connected')
+        })
+    </script>
+</div>
+</body>
+</html>
+
+
